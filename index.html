@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!--
+  ============================================================
+  FILE 1 OF 3: leads.html
+  PROJECT: Syncly — SaaS Lead Generator Landing Page
+  PURPOSE: Email capture landing page for a SaaS product
+  LINKS TO: leads.css | leads.js
+  ============================================================
+  SECTIONS:
+    1.  Announcement Bar
+    2.  Navigation
+    3.  Hero (primary email capture)
+    4.  Social Proof / Logo Strip
+    5.  Problem → Solution
+    6.  Features Grid
+    7.  How It Works
+    8.  Testimonials
+    9.  Pricing Teaser
+    10. Second CTA (email capture)
+    11. FAQ
+    12. Footer
+  ============================================================
+-->
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Syncly — The all-in-one workspace that helps teams ship faster. Join 12,000+ teams on the waitlist." />
+  <title>Syncly — Ship Faster. Together.</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- ── SECTION 1: ANNOUNCEMENT BAR ───────────────────────
+       Dismissable top bar with a limited-time offer.        -->
+  <div class="ann-bar" id="annBar">
+    <p class="ann-text">
+      🎉 Early access is open —
+      <strong>first 500 users get 6 months free.</strong>
+      <span class="ann-spots" id="annSpots">342 spots left.</span>
+    </p>
+    <button class="ann-close" onclick="dismissAnn()" aria-label="Dismiss">✕</button>
+  </div>
+
+
+  <!-- ── SECTION 2: NAVIGATION ──────────────────────────── -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+
+      <a href="#" class="nav-logo">
+        <span class="logo-icon">⬡</span> Syncly
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#features" class="nav-link">Features</a></li>
+        <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+        <li><a href="#pricing" class="nav-link">Pricing</a></li>
+        <li><a href="#faq" class="nav-link">FAQ</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="#" class="nav-signin">Sign In</a>
+        <a href="#hero-capture" class="btn-primary nav-cta">
+          Get Early Access
+        </a>
+      </div>
+
+      <button class="hamburger" id="hamburger"
+              onclick="toggleMobileMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="#features"     onclick="toggleMobileMenu()">Features</a></li>
+      <li><a href="#how-it-works" onclick="toggleMobileMenu()">How It Works</a></li>
+      <li><a href="#pricing"      onclick="toggleMobileMenu()">Pricing</a></li>
+      <li><a href="#faq"          onclick="toggleMobileMenu()">FAQ</a></li>
+      <li>
+        <a href="#hero-capture" class="mobile-cta"
+           onclick="toggleMobileMenu()">Get Early Access →</a>
+      </li>
+    </ul>
+  </div>
+
+
+  <!-- ── SECTION 3: HERO ────────────────────────────────────
+       Primary headline + email capture form.               -->
+  <section class="hero" id="hero">
+
+    <!-- Background elements -->
+    <div class="hero-grid"></div>
+    <div class="hero-gradient"></div>
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+
+    <div class="hero-inner">
+
+      <!-- Badge -->
+      <div class="hero-badge fade-up">
+        <span class="badge-pulse"></span>
+        Launching Q3 2025 · Waitlist Open
+      </div>
+
+      <!-- Headline -->
+      <h1 class="hero-title fade-up fade-up-d1">
+        The workspace where<br>
+        teams <span class="hero-highlight">ship faster</span>.
+      </h1>
+
+      <!-- Sub-headline -->
+      <p class="hero-sub fade-up fade-up-d2">
+        Syncly brings your tasks, docs, code reviews, and stand-ups into
+        one beautifully simple space. No more tab switching. No more missed context.
+      </p>
+
+      <!-- Social proof micro-line -->
+      <div class="hero-proof fade-up fade-up-d2">
+        <div class="proof-avatars">
+          <span class="avatar av1">JK</span>
+          <span class="avatar av2">ML</span>
+          <span class="avatar av3">PR</span>
+          <span class="avatar av4">SA</span>
+          <span class="avatar av5">+</span>
+        </div>
+        <p class="proof-text">
+          Join <strong id="waitlistCount">12,483</strong> teams already on the waitlist
+        </p>
+      </div>
+
+      <!-- ★ PRIMARY EMAIL CAPTURE FORM ★ -->
+      <div class="hero-form-wrap fade-up fade-up-d3" id="hero-capture">
+        <form class="capture-form" id="heroForm" onsubmit="submitEmail(event,'hero')">
+          <div class="form-row">
+            <input
+              type="email"
+              class="email-input"
+              id="heroEmail"
+              placeholder="Enter your work email"
+              required
+              autocomplete="email"
+            />
+            <button type="submit" class="btn-primary btn-submit" id="heroSubmitBtn">
+              <span class="btn-label">Get Early Access</span>
+              <span class="btn-loader" aria-hidden="true"></span>
+            </button>
+          </div>
+          <p class="form-note">
+            🔒 No credit card. No spam. Unsubscribe anytime.
+          </p>
+        </form>
+
+        <!-- Success state (hidden, shown by JS) -->
+        <div class="capture-success" id="heroSuccess">
+          <div class="success-icon">✓</div>
+          <div>
+            <p class="success-title">You're on the list! 🎉</p>
+            <p class="success-sub">
+              We'll email you at <strong id="heroEmailConfirm"></strong>
+              when your spot is ready.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature pills -->
+      <div class="hero-pills fade-up fade-up-d3">
+        <span class="hero-pill">✓ Free during beta</span>
+        <span class="hero-pill">✓ Cancel anytime</span>
+        <span class="hero-pill">✓ SOC 2 compliant</span>
+      </div>
+
+    </div>
+
+    <!-- App preview mockup -->
+    <div class="hero-mockup fade-up fade-up-d2">
+      <div class="mockup-window">
+        <div class="mockup-titlebar">
+          <span class="dot dot-red"></span>
+          <span class="dot dot-yellow"></span>
+          <span class="dot dot-green"></span>
+          <span class="mockup-url">app.syncly.io</span>
+        </div>
+        <div class="mockup-body">
+          <!-- Sidebar -->
+          <div class="mock-sidebar">
+            <div class="mock-logo">⬡ Syncly</div>
+            <div class="mock-nav-items">
+              <div class="mock-nav-item mock-active">
+                <span>◈</span> Dashboard
+              </div>
+              <div class="mock-nav-item">
+                <span>◻</span> Projects
+              </div>
+              <div class="mock-nav-item">
+                <span>◷</span> Sprints
+              </div>
+              <div class="mock-nav-item">
+                <span>◑</span> Docs
+              </div>
+              <div class="mock-nav-item">
+                <span>◬</span> Analytics
+              </div>
+            </div>
+          </div>
+          <!-- Main content -->
+          <div class="mock-content">
+            <div class="mock-header">
+              <span class="mock-title">Q3 Sprint — Week 3</span>
+              <div class="mock-actions">
+                <div class="mock-btn">+ Add Task</div>
+              </div>
+            </div>
+            <!-- Task list -->
+            <div class="mock-tasks">
+              <div class="mock-task mock-task-done">
+                <span class="task-check task-done">✓</span>
+                <span class="task-name done">Set up CI pipeline</span>
+                <span class="task-tag tag-eng">Eng</span>
+              </div>
+              <div class="mock-task mock-task-progress">
+                <span class="task-check task-prog">◑</span>
+                <span class="task-name">Redesign onboarding flow</span>
+                <span class="task-tag tag-design">Design</span>
+              </div>
+              <div class="mock-task">
+                <span class="task-check">○</span>
+                <span class="task-name">Write API docs v2</span>
+                <span class="task-tag tag-eng">Eng</span>
+              </div>
+              <div class="mock-task">
+                <span class="task-check">○</span>
+                <span class="task-name">User interview — 5 sessions</span>
+                <span class="task-tag tag-pm">PM</span>
+              </div>
+            </div>
+            <!-- Progress bar -->
+            <div class="mock-progress-section">
+              <div class="mock-progress-label">
+                <span>Sprint Progress</span><span>62%</span>
+              </div>
+              <div class="mock-progress-bar">
+                <div class="mock-progress-fill" style="width:62%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Floating notification cards -->
+      <div class="notif-card notif-1">
+        <span class="notif-icon">🚀</span>
+        <div>
+          <p class="notif-title">Deployment successful</p>
+          <p class="notif-sub">v2.4.1 is live · 2m ago</p>
+        </div>
+      </div>
+      <div class="notif-card notif-2">
+        <span class="notif-icon">✓</span>
+        <div>
+          <p class="notif-title">PR #142 merged</p>
+          <p class="notif-sub">by @alex · just now</p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ── SECTION 4: LOGO STRIP ──────────────────────────────
+       Logos of companies already using / on the waitlist.  -->
+  <div class="logo-strip">
+    <div class="container">
+      <p class="logo-strip-label">Trusted by teams at</p>
+      <div class="logo-list">
+        <span class="logo-item">Notion</span>
+        <span class="logo-sep">·</span>
+        <span class="logo-item">Linear</span>
+        <span class="logo-sep">·</span>
+        <span class="logo-item">Vercel</span>
+        <span class="logo-sep">·</span>
+        <span class="logo-item">Stripe</span>
+        <span class="logo-sep">·</span>
+        <span class="logo-item">Figma</span>
+        <span class="logo-sep">·</span>
+        <span class="logo-item">Loom</span>
+        <span class="logo-sep">·</span>
+        <span class="logo-item">PostHog</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ── SECTION 5: PROBLEM → SOLUTION ─────────────────────
+       Agitates the pain, then positions Syncly as the fix. -->
+  <section class="section-problem">
+    <div class="container">
+      <div class="problem-grid">
+
+        <!-- Pain side -->
+        <div class="problem-side fade-up">
+          <p class="problem-eyebrow problem-bad">❌ Without Syncly</p>
+          <ul class="problem-list bad-list">
+            <li>Jira for tasks, Notion for docs, Slack for standups — scattered everywhere</li>
+            <li>Context lost between tools means slower shipping</li>
+            <li>6+ browser tabs open just to run a sprint</li>
+            <li>New hires take weeks to get up to speed</li>
+            <li>Managers spend hours chasing status updates</li>
+          </ul>
+        </div>
+
+        <!-- Divider -->
+        <div class="problem-divider fade-up">
+          <div class="divider-line"></div>
+          <div class="divider-icon">→</div>
+          <div class="divider-line"></div>
+        </div>
+
+        <!-- Solution side -->
+        <div class="problem-side fade-up">
+          <p class="problem-eyebrow problem-good">✓ With Syncly</p>
+          <ul class="problem-list good-list">
+            <li>One workspace for tasks, docs, sprints, and stand-ups</li>
+            <li>Full context always one click away</li>
+            <li>Everything your team needs in a single tab</li>
+            <li>Onboarding in minutes, not weeks</li>
+            <li>Real-time progress visible to everyone, always</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── SECTION 6: FEATURES GRID ──────────────────────────
+       Six key product features with icons.                 -->
+  <section class="section-features" id="features">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="section-eyebrow">Everything you need</p>
+        <h2 class="section-title">
+          One platform.<br>Every workflow.
+        </h2>
+        <p class="section-sub">
+          Syncly replaces six tools with one. Here's what's inside.
+        </p>
+      </div>
+
+      <div class="features-grid">
+
+        <div class="feat-card fade-up">
+          <div class="feat-icon feat-blue">◈</div>
+          <h3 class="feat-title">Smart Task Boards</h3>
+          <p class="feat-desc">
+            Kanban, list, or timeline — switch views instantly. AI auto-assigns
+            priorities based on your sprint goals.
+          </p>
+          <span class="feat-tag">Core</span>
+        </div>
+
+        <div class="feat-card fade-up fade-up-d1">
+          <div class="feat-icon feat-purple">◑</div>
+          <h3 class="feat-title">Living Docs</h3>
+          <p class="feat-desc">
+            Docs that link directly to tasks and PRs. No more copy-pasting
+            context between Notion and Jira.
+          </p>
+          <span class="feat-tag">Core</span>
+        </div>
+
+        <div class="feat-card fade-up fade-up-d2">
+          <div class="feat-icon feat-green">◬</div>
+          <h3 class="feat-title">Sprint Analytics</h3>
+          <p class="feat-desc">
+            Velocity charts, burndown graphs, and bottleneck detection —
+            all automatic. No spreadsheets required.
+          </p>
+          <span class="feat-tag">Analytics</span>
+        </div>
+
+        <div class="feat-card fade-up fade-up-d1">
+          <div class="feat-icon feat-orange">◷</div>
+          <h3 class="feat-title">Async Standups</h3>
+          <p class="feat-desc">
+            Replace your daily 30-minute meeting with a 2-minute async
+            update. Summaries generated by AI.
+          </p>
+          <span class="feat-tag">Collaboration</span>
+        </div>
+
+        <div class="feat-card fade-up fade-up-d2">
+          <div class="feat-icon feat-blue">◻</div>
+          <h3 class="feat-title">GitHub & GitLab Sync</h3>
+          <p class="feat-desc">
+            PRs, commits, and deployments automatically linked to tasks.
+            See code progress without leaving Syncly.
+          </p>
+          <span class="feat-tag">Integrations</span>
+        </div>
+
+        <div class="feat-card fade-up fade-up-d3">
+          <div class="feat-icon feat-purple">◎</div>
+          <h3 class="feat-title">AI Co-pilot</h3>
+          <p class="feat-desc">
+            Summarise threads, draft task descriptions, flag blockers early,
+            and generate sprint retrospectives in seconds.
+          </p>
+          <span class="feat-tag feat-tag-new">New ✦</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── SECTION 7: HOW IT WORKS ────────────────────────────
+       Three-step onboarding flow.                          -->
+  <section class="section-how" id="how-it-works">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="section-eyebrow">Simple by design</p>
+        <h2 class="section-title">Up and running in 5 minutes</h2>
+      </div>
+
+      <div class="steps-grid">
+
+        <div class="step-card fade-up">
+          <div class="step-num">01</div>
+          <div class="step-connector"></div>
+          <div class="step-icon">📬</div>
+          <h3 class="step-title">Join the waitlist</h3>
+          <p class="step-desc">
+            Drop your work email below. Early access spots are limited
+            and issued on a first-come, first-served basis.
+          </p>
+        </div>
+
+        <div class="step-card fade-up fade-up-d1">
+          <div class="step-num">02</div>
+          <div class="step-connector"></div>
+          <div class="step-icon">🔧</div>
+          <h3 class="step-title">Set up your workspace</h3>
+          <p class="step-desc">
+            Connect GitHub, import your Jira backlog, or start fresh.
+            Invite teammates in one click. Takes under 5 minutes.
+          </p>
+        </div>
+
+        <div class="step-card fade-up fade-up-d2">
+          <div class="step-num">03</div>
+          <div class="step-icon">🚀</div>
+          <h3 class="step-title">Ship faster</h3>
+          <p class="step-desc">
+            Teams using Syncly report shipping 40% faster in their
+            first sprint. No training required.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── SECTION 8: TESTIMONIALS ────────────────────────────
+       Three social proof quotes from beta users.          -->
+  <section class="section-testimonials">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="section-eyebrow">What beta users say</p>
+        <h2 class="section-title">Real teams. Real results.</h2>
+      </div>
+
+      <div class="testi-grid">
+
+        <div class="testi-card fade-up">
+          <div class="testi-stars">★★★★★</div>
+          <blockquote class="testi-quote">
+            "We cancelled our Jira and Notion subscriptions on day one.
+            Syncly does both — better — and my team actually enjoys using it."
+          </blockquote>
+          <div class="testi-author">
+            <div class="testi-avatar ta-1">MK</div>
+            <div>
+              <p class="testi-name">Marcus K.</p>
+              <p class="testi-role">CTO, FrameHQ</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card testi-featured fade-up fade-up-d1">
+          <div class="testi-stars">★★★★★</div>
+          <blockquote class="testi-quote">
+            "Sprint planning used to take half a day. With Syncly's AI
+            suggestions, we're done in 20 minutes. It's genuinely magical."
+          </blockquote>
+          <div class="testi-author">
+            <div class="testi-avatar ta-2">SP</div>
+            <div>
+              <p class="testi-name">Sara P.</p>
+              <p class="testi-role">Head of Product, Draftbit</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card fade-up fade-up-d2">
+          <div class="testi-stars">★★★★★</div>
+          <blockquote class="testi-quote">
+            "Our remote team finally feels in sync. Async standups
+            replace our daily meetings and the AI summaries are scarily good."
+          </blockquote>
+          <div class="testi-author">
+            <div class="testi-avatar ta-3">JL</div>
+            <div>
+              <p class="testi-name">James L.</p>
+              <p class="testi-role">Engineering Manager, Polar</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── SECTION 9: PRICING TEASER ─────────────────────────
+       Simple tier cards — no prices yet (launches later).  -->
+  <section class="section-pricing" id="pricing">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="section-eyebrow">Simple pricing</p>
+        <h2 class="section-title">Free to start. Scale when you're ready.</h2>
+        <p class="section-sub">
+          Early access users lock in beta pricing — forever.
+        </p>
+      </div>
+
+      <div class="pricing-grid">
+
+        <!-- Free tier -->
+        <div class="pricing-card fade-up">
+          <div class="pricing-tier">Starter</div>
+          <div class="pricing-price">
+            <span class="price-amount">$0</span>
+            <span class="price-period">/ month</span>
+          </div>
+          <p class="pricing-desc">Perfect for small teams and side projects.</p>
+          <ul class="pricing-features">
+            <li>✓ Up to 5 members</li>
+            <li>✓ 3 active projects</li>
+            <li>✓ Basic task boards</li>
+            <li>✓ 5 GB storage</li>
+            <li>✗ AI Co-pilot</li>
+            <li>✗ GitHub sync</li>
+          </ul>
+          <a href="#second-capture" class="btn-outline pricing-btn">Get Started Free</a>
+        </div>
+
+        <!-- Pro tier (featured) -->
+        <div class="pricing-card pricing-featured fade-up fade-up-d1">
+          <div class="pricing-popular">Most Popular</div>
+          <div class="pricing-tier">Pro</div>
+          <div class="pricing-price">
+            <span class="price-amount">$18</span>
+            <span class="price-period">/ seat / month</span>
+          </div>
+          <p class="pricing-desc">For growing teams who ship fast.</p>
+          <ul class="pricing-features">
+            <li>✓ Unlimited members</li>
+            <li>✓ Unlimited projects</li>
+            <li>✓ All board views</li>
+            <li>✓ 100 GB storage</li>
+            <li>✓ AI Co-pilot</li>
+            <li>✓ GitHub & GitLab sync</li>
+          </ul>
+          <a href="#second-capture" class="btn-primary pricing-btn">Join Waitlist</a>
+        </div>
+
+        <!-- Enterprise tier -->
+        <div class="pricing-card fade-up fade-up-d2">
+          <div class="pricing-tier">Enterprise</div>
+          <div class="pricing-price">
+            <span class="price-amount">Custom</span>
+          </div>
+          <p class="pricing-desc">For large orgs with advanced security needs.</p>
+          <ul class="pricing-features">
+            <li>✓ Everything in Pro</li>
+            <li>✓ SSO / SAML</li>
+            <li>✓ Audit logs</li>
+            <li>✓ Dedicated support</li>
+            <li>✓ SLA guarantee</li>
+            <li>✓ Custom contracts</li>
+          </ul>
+          <a href="mailto:enterprise@syncly.io" class="btn-outline pricing-btn">Contact Sales</a>
+        </div>
+
+      </div>
+
+      <!-- Early-bird note -->
+      <p class="pricing-note fade-up">
+        ⚡ Waitlist members lock in <strong>Pro at $12/seat/month</strong>
+        — 33% off forever. Offer ends when early access closes.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ── SECTION 10: SECOND EMAIL CAPTURE ───────────────────
+       Repeated CTA for users who scrolled past the hero.  -->
+  <section class="section-second-cta" id="second-capture">
+    <div class="container">
+      <div class="second-cta-inner fade-up">
+
+        <div class="scta-left">
+          <p class="section-eyebrow">Don't miss out</p>
+          <h2 class="scta-title">
+            Join 12,000+ teams<br>shipping with Syncly.
+          </h2>
+          <ul class="scta-perks">
+            <li><span class="perk-check">✓</span> 6 months free for first 500 users</li>
+            <li><span class="perk-check">✓</span> Lock in early-bird pricing forever</li>
+            <li><span class="perk-check">✓</span> Priority onboarding & support</li>
+          </ul>
+        </div>
+
+        <div class="scta-right">
+          <form class="capture-form capture-form-light"
+                id="secondForm" onsubmit="submitEmail(event,'second')">
+            <input
+              type="email"
+              class="email-input email-input-light"
+              id="secondEmail"
+              placeholder="Enter your work email"
+              required
+            />
+            <button type="submit" class="btn-primary btn-submit btn-full"
+                    id="secondSubmitBtn">
+              <span class="btn-label">Get Early Access →</span>
+              <span class="btn-loader" aria-hidden="true"></span>
+            </button>
+            <p class="form-note form-note-dark">
+              🔒 No credit card. No spam. Unsubscribe anytime.
+            </p>
+          </form>
+
+          <div class="capture-success capture-success-light"
+               id="secondSuccess">
+            <div class="success-icon success-icon-dark">✓</div>
+            <div>
+              <p class="success-title success-title-dark">You're on the list! 🎉</p>
+              <p class="success-sub success-sub-dark">
+                We'll email <strong id="secondEmailConfirm"></strong> when your spot is ready.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── SECTION 11: FAQ ────────────────────────────────────
+       Accordion FAQ — JS handles open/close.              -->
+  <section class="section-faq" id="faq">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="section-eyebrow">Got questions?</p>
+        <h2 class="section-title">Frequently asked</h2>
+      </div>
+
+      <div class="faq-list fade-up" id="faqList">
+
+        <div class="faq-item" data-index="0">
+          <button class="faq-q" onclick="toggleFaq(0)">
+            <span>When does Syncly launch?</span>
+            <span class="faq-chevron">+</span>
+          </button>
+          <div class="faq-a">
+            <p>We're targeting a public launch in Q3 2025. Waitlist members get access 4–6 weeks
+               before public launch, so sign up now to be first in the door.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-index="1">
+          <button class="faq-q" onclick="toggleFaq(1)">
+            <span>Is Syncly really free to try?</span>
+            <span class="faq-chevron">+</span>
+          </button>
+          <div class="faq-a">
+            <p>Yes — the Starter plan is free forever. During the beta period, all waitlist members
+               get 6 months of Pro features at no cost, no credit card required.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-index="2">
+          <button class="faq-q" onclick="toggleFaq(2)">
+            <span>Can I migrate from Jira or Notion?</span>
+            <span class="faq-chevron">+</span>
+          </button>
+          <div class="faq-a">
+            <p>Absolutely. We have one-click importers for Jira, Linear, Asana, Trello, and Notion.
+               Most migrations complete in under 10 minutes. Our team also offers free migration
+               assistance for teams of 20+.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-index="3">
+          <button class="faq-q" onclick="toggleFaq(3)">
+            <span>Is my data secure?</span>
+            <span class="faq-chevron">+</span>
+          </button>
+          <div class="faq-a">
+            <p>Security is our top priority. Syncly is SOC 2 Type II certified, encrypted at rest
+               and in transit, and hosted on ISO 27001-certified infrastructure. We never sell
+               your data.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-index="4">
+          <button class="faq-q" onclick="toggleFaq(4)">
+            <span>Does Syncly work for non-engineering teams?</span>
+            <span class="faq-chevron">+</span>
+          </button>
+          <div class="faq-a">
+            <p>Yes. While we started with engineering teams in mind, Syncly works equally well
+               for design, product, marketing, and ops teams. The views and workflows adapt
+               to how your team works.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-index="5">
+          <button class="faq-q" onclick="toggleFaq(5)">
+            <span>What integrations do you support?</span>
+            <span class="faq-chevron">+</span>
+          </button>
+          <div class="faq-a">
+            <p>At launch: GitHub, GitLab, Slack, Figma, Google Drive, Notion, Linear, Jira,
+               and Zapier. More integrations ship monthly. Enterprise plans include custom
+               webhooks and an open API.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── SECTION 12: FOOTER ─────────────────────────────────
+       Minimal footer with links and legal.                 -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#" class="footer-logo">
+            <span class="logo-icon">⬡</span> Syncly
+          </a>
+          <p class="footer-tagline">
+            The workspace for teams who ship.
+          </p>
+          <div class="footer-socials">
+            <a href="#" aria-label="Twitter">𝕏</a>
+            <a href="#" aria-label="LinkedIn">in</a>
+            <a href="#" aria-label="GitHub">◎</a>
+          </div>
+        </div>
+        <div class="footer-links-grid">
+          <div class="footer-col">
+            <h4>Product</h4>
+            <a href="#features">Features</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#">Changelog</a>
+          </div>
+          <div class="footer-col">
+            <h4>Company</h4>
+            <a href="#">About</a>
+            <a href="#">Blog</a>
+            <a href="#">Careers</a>
+            <a href="#">Press</a>
+          </div>
+          <div class="footer-col">
+            <h4>Support</h4>
+            <a href="#">Help Center</a>
+            <a href="#">Status</a>
+            <a href="mailto:hello@syncly.io">Contact</a>
+            <a href="#">Community</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Syncly Inc. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Cookie Settings</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Progress bar (top of page, shows scroll %) -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <script src="index.js"charset="utf-8" ></script>
+</body>
+</html>
